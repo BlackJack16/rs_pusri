@@ -10,8 +10,9 @@
   <?php
   	include "dist/koneksi.php";
 	
-    $DataDokter =mysql_query("SELECT * FROM `pasien` WHere NIK NOT IN (SELECT NIK FROM `antrianpasien`) ");
-    while ($row = mysql_fetch_array($DataDokter)){
+    $DataDokter =mysql_query("SELECT * FROM `pasien` WHere NIK NOT IN (SELECT NIK FROM `antrianpasien`) ORDER BY pasien.idPasien DESC
+    ");
+      while ($row = mysql_fetch_array($DataDokter)){
     
 	echo '<a href="home-admin.php?page=edit-pasien&id='.$row['idPasien'].'"><div class="col-lg-12 col-xs-12">
   <div class="info-box">

@@ -10,8 +10,9 @@
   <?php
   	include "dist/koneksi.php";
 	
-    $DataDokter =mysql_query("SELECT * FROM `pasien` INNER JOIN antrianpasien on pasien.NIK = antrianpasien.NIK where antrianpasien.status = 1 ");
-    while ($row = mysql_fetch_array($DataDokter)){
+    $DataDokter =mysql_query("SELECT * FROM `pasien` INNER JOIN antrianpasien on pasien.NIK = antrianpasien.NIK where antrianpasien.status = 1 ORDER BY pasien.idPasien DESC
+    ");
+      while ($row = mysql_fetch_array($DataDokter)){
     
 	echo '<a href="home-admin.php?page=edit-pasien&id='.$row['idPasien'].'"><div class="col-lg-12 col-xs-12">
   <div class="info-box">
