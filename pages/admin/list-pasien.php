@@ -10,7 +10,7 @@
   <?php
   	include "dist/koneksi.php";
 	
-    $DataDokter =mysql_query("SELECT * FROM `pasien` INNER JOIN antrianpasien on pasien.NIK = antrianpasien.NIK where antrianpasien.status = 1 ORDER BY pasien.idPasien DESC
+    $DataDokter =mysql_query("SELECT * FROM `pasien` INNER JOIN antrianpasien on pasien.NIK = antrianpasien.NIK where antrianpasien.status = 0 ORDER BY pasien.idPasien DESC
     ");
       while ($row = mysql_fetch_array($DataDokter)){
     
