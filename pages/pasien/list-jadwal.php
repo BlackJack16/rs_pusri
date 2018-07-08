@@ -9,7 +9,7 @@
   <?php
   	include "dist/koneksi.php";
 	
-    $DataDokter =mysql_query("SELECT * FROM `jadwal` INNER JOIN dokter on dokter.idDokter = jadwal.idDokter INNER JOIN hari on hari.idHari = jadwal.idHari");
+    $DataDokter =mysql_query("SELECT * FROM `jadwal` INNER JOIN dokter on dokter.idDokter = jadwal.idDokter INNER JOIN hari on hari.idHari = jadwal.idHari order by hari.idhari");
     while ($row = mysql_fetch_array($DataDokter)){
     
 	echo '<div class="col-lg-12 col-xs-12">
