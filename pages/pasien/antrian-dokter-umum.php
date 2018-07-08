@@ -59,7 +59,7 @@
 
 // $DataDokter =mysql_query("SELECT antrianPasien.noAntrian,`antrianPasien`.NIK as NIK, `pasien`.nama as namaPasien, `dokter`.nama as namaDokter, dokter.spesialis as spesialis, jadwal.kamar FROM `antrianPasien` INNER JOIN dokter ON dokter.idDokter = antrianPasien.idDokter INNER JOIN pasien on pasien.NIK = antrianPasien.NIK inner join jadwal on antrianPasien.idDokter=jadwal.idDokter WHERE tglAntrian = CURDATE() and NIKPendaftar = $_SESSION[username] order by antrianPasien.idDokter desc");
 
-    $DataDokter =mysql_query("SELECT antrianPasien.noAntrian,`antrianPasien`.NIK as NIK, `pasien`.nama as namaPasien, `dokter`.nama as namaDokter, dokter.spesialis as spesialis FROM `antrianPasien` INNER JOIN dokter ON dokter.idDokter = antrianPasien.idDokter INNER JOIN pasien on pasien.NIK = antrianPasien.NIK WHERE tglAntrian = CURDATE() and NIKPendaftar = $_SESSION[username] and dokter.spesialis='Dokter Umum' order by antrianPasien.noAntrian asc");
+    $DataDokter =mysql_query("SELECT antrianpasien.kodeBooking, antrianpasien.tglAntrian,antrianPasien.noAntrian,`antrianPasien`.NIK as NIK, `pasien`.nama as namaPasien, `dokter`.nama as namaDokter, dokter.spesialis as spesialis FROM `antrianPasien` INNER JOIN dokter ON dokter.idDokter = antrianPasien.idDokter INNER JOIN pasien on pasien.NIK = antrianPasien.NIK WHERE tglAntrian = CURDATE() and NIKPendaftar = $_SESSION[username] and dokter.spesialis='Dokter Umum' order by antrianPasien.noAntrian asc");
     while ($row = mysql_fetch_array($DataDokter)){
       
       echo '<div class="col-lg-12 col-xs-12">
@@ -67,11 +67,12 @@
       <span class="info-box-icon bg-aqua">'.$row['noAntrian'].'</span>
       
       <div class="info-box-content">
-      <span class="info-box-text">'.$row['namaPasien'].'</span>
+      <span class="info-box-text">'.$row['tglAntrian'].'</span>
+      <span>'.$row['namaPasien'].'</span>
       <span class="info-box-text">'.$row['NIK'].'</span>
-      <span class="info-box-text">'.$row['namaDokter'].'</span>
-      <span class="info-box-text">'.$row['spesialis'].'</span>
-
+      <span >'.$row['namaDokter'].'</span></br>
+      <span >'.$row['spesialis'].'</span></br>
+      <span>kode booking <b>'.$row['kodeBooking'].'</b><span>
       </div>
       <!-- /.info-box-content -->
       </div>

@@ -11,7 +11,18 @@
 	$NIK	=$_POST['NIK'];
 	$idDokter	=$_POST['idDokter'];
 	$spesi =$_POST['spesialis'];
+
+	function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+				$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
 	
+	$random_string = generateRandomString();
 	include "dist/koneksi.php";
 	// $cekuser	=mysql_num_rows (mysql_query("SELECT username FROM tb_user WHERE username='$_POST[username]'"));
 	
@@ -31,14 +42,17 @@
 		}
     
 		else {
+
+
       $cekNIK = mysql_num_rows(mysql_query("SELECT * FROM Pasien WHERE NIK = '$NIK'"));
         if(($cekNIK)==1){
 
 					$cekAntrian = mysql_num_rows(mysql_query("SELECT * FROM `antrianPasien` WHERE tglAntrian = CURDATE() and spesialis='$spesi'"));
 					if(($cekAntrian)==0){
 						$pendaftar = $_SESSION['username'];
-						
-						$insert = "INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian) VALUES ('$NIK','$idDokter','$spesi',1,'$pendaftar',NOW())";
+
+						$insert = "INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian,kodeBooking) VALUES ('$NIK','$idDokter','$spesi',1,'$pendaftar',NOW(),'$random_string')";						
+						//INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian,kodeBooking) VALUES ('$NIK','$idDokter','$spesi',$tambahAntrian,'$pendaftar',NOW(),'$random_string')"
 						$query = mysql_query ($insert);
 						// echo "berhasil";
 						echo '
@@ -69,7 +83,7 @@
 					$tambahAntrian = ($noAntrian + 1);
 					$pendaftar = $_SESSION['username'];
 
-					$insert = "INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian) VALUES ('$NIK','$idDokter','$spesi',$tambahAntrian,'$pendaftar',NOW())";
+					$insert = "INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian,kodeBooking) VALUES ('$NIK','$idDokter','$spesi',$tambahAntrian,'$pendaftar',NOW(),'$random_string')";
 					$query = mysql_query ($insert);
 					echo '
 					<div class="modal-dialog" role="document">

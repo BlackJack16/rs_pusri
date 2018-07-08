@@ -52,7 +52,7 @@
                   }
                 ?>   
         </select>
-        <!-- <input type="text" name="spesialis" value="<?php echo $row['spesialis']; ?>" -->  
+        
     </div>
     
     <div id="tampil">
