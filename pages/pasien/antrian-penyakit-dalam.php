@@ -35,7 +35,14 @@
       <div class="small-box bg-aqua">
         <div class="inner">
           <p>No Antrian Sekarang</p>
-          <h3><?=$noAntrian?></h3>
+          <?php 
+          if ((int)$noAntrian>10) {
+            echo "<h3>".$noAntrian."</h3>";
+          }
+          else {
+            echo "<h3>0".$noAntrian."</h3>";
+          }
+          ?>
         </div>
         <div class="icon">
           <i class="ion ion-clipboard"></i>
@@ -61,10 +68,15 @@
 
     $DataDokter =mysql_query("SELECT antrianPasien.kodeBooking, antrianPasien.tglAntrian,antrianPasien.noAntrian,`antrianPasien`.NIK as NIK, `pasien`.nama as namaPasien, `dokter`.nama as namaDokter, dokter.spesialis as spesialis FROM `antrianPasien` INNER JOIN dokter ON dokter.idDokter = antrianPasien.idDokter INNER JOIN pasien on pasien.NIK = antrianPasien.NIK WHERE tglAntrian = CURDATE() and NIKPendaftar = $_SESSION[username] and dokter.spesialis='Penyakit Dalam' order by antrianPasien.noAntrian asc");
     while ($row = mysql_fetch_array($DataDokter)){
-      
+      if ($row['noAntrian']<10){
+        $noSaya = "0".$row['noAntrian'];
+      }
+      else {
+        $noSaya = $row['noAntrian'];
+      } 
       echo '<div class="col-lg-12 col-xs-12">
       <div class="info-box">
-      <span class="info-box-icon bg-aqua">'.$row['noAntrian'].'</span>
+      <span class="info-box-icon bg-aqua">'.$noSaya.'</span>
       
       <div class="info-box-content">
       <span class="info-box-text">'.$row['tglAntrian'].'</span>
