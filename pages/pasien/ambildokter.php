@@ -6,23 +6,30 @@ $dokter= mysql_query("SELECT * FROM dokter where dokter.idDokter = '$idDokter' "
 $getData = mysql_fetch_array($dokter);
 $spesialis = $getData['spesialis'];
 
-//$getAllSpesialis = mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'");
-$getAllSpesialis = mysql_query("SELECT * FROM dokter where spesialis = '$spesialis'");
-
+$getSpesialis = mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'");
+// $getAllSpesialis = mysql_query("SELECT * FROM dokter where spesialis = '$spesialis'");
+$getAllSpesialis = mysql_num_rows(mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'"));
+if(($getAllSpesialis)==1){
 echo '<div  class="form-group"> 
 <label>Dokter</label>
-<select name="idDokter" id="spesialis" class="form-control" required="">';
+<select name="idDokter" id="spesialis" class="form-control" required>';
 
-while ($row = mysql_fetch_array($getAllSpesialis)) {
+while ($row = mysql_fetch_array($getSpesialis)) {
   echo "<option value=".$row['idDokter'].">".$row['nama']."</option>";
 }
-// else {
-//   echo "<option value=''>Tidak ada dokter pada hari ini</option>";
-// }; ?>
 
-
- <input type="text" name="spesialis" value="<?php echo $spesialis; ?>" hidden>
-
+echo '<input type="text" name="spesialis" value="'.$spesialis.'" hidden>
 </select>                   
-    </div>
-    <button id="btnSubmit" style="margin-bottom:10px;" class="btn btn-block btn-primary">Daftar Antrian</button>
+</div>
+<button id="btnSubmit" style="margin-bottom:10px;" class="btn btn-block btn-primary">Daftar Antrian</button>';
+
+}
+else {
+  echo '
+  <div class="form-group">
+    <input class="form-control"  name="Nama" id="Nama" placeholder="Tidak ada dokter hari ini" disabled>
+  </div>';
+  // echo "<option disabled>Tidak ada dokter hari ini</option>";
+
+}
+?>

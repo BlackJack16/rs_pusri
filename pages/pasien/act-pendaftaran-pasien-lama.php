@@ -75,32 +75,56 @@
 					}
 
 					else {
+
 					$cekAntrian = mysql_query("SELECT * FROM `antrianPasien` WHERE tglAntrian = CURDATE() and  spesialis='$spesi' ORDER BY `antrianPasien`.`noAntrian` DESC");						
 						// $Data= mysql_query("SELECT * FROM antrianPasien where idDokter = '$idDokter'");
 
 					$getData = mysql_fetch_array($cekAntrian);
 					$noAntrian = $getData['noAntrian'];
-					$tambahAntrian = ($noAntrian + 1);
-					$pendaftar = $_SESSION['username'];
+					
+					if ($noAntrian<20){
+						$noAntrian = $getData['noAntrian'];
+						$tambahAntrian = ($noAntrian + 1);
+						$pendaftar = $_SESSION['username'];
+	
+						$insert = "INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian,kodeBooking) VALUES ('$NIK','$idDokter','$spesi',$tambahAntrian,'$pendaftar',NOW(),'$random_string')";
+						$query = mysql_query ($insert);
+						echo '
+						<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<!-- <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Selanjutnya</h4>
+				</div> -->
+				<div class="modal-body">
+				Pendaftaran Antrian berhasil, lihat nomor antrian anda pada halaman pemberitahuan
+				</div>
+				<div class="modal-footer">
+				<button onclick=location.href="home-pasien.php?page=pendaftaran" type="button" class="myButton btn btn-primary" >Lanjutkan</button>
+				</div>
+			</div>
+		</div>				
+						';
+					}
+					else{
+						echo '
+						<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<!-- <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Antrian Penuh</h4>
+				</div> -->
+				<div class="modal-body">
+				Pendaftaran Antrian penuh, silahkan melakukan pendaftaran besok
+				</div>
+				<div class="modal-footer">
+				<button onclick=location.href="home-pasien.php?page=pendaftaran" type="button" class="myButton btn btn-primary" >Lanjutkan</button>
+				</div>
+			</div>
+		</div>				
+						';
+					}
 
-					$insert = "INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian,kodeBooking) VALUES ('$NIK','$idDokter','$spesi',$tambahAntrian,'$pendaftar',NOW(),'$random_string')";
-					$query = mysql_query ($insert);
-					echo '
-					<div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <!-- <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Selanjutnya</h4>
-      </div> -->
-      <div class="modal-body">
-			Pendaftaran Antrian berhasil, lihat nomor antrian anda pada halaman pemberitahuan
-      </div>
-			<div class="modal-footer">
-			<button onclick=location.href="home-pasien.php?page=pendaftaran" type="button" class="myButton btn btn-primary" >Lanjutkan</button>
-      </div>
-    </div>
-  </div>
-					';
 						
 					}
 				

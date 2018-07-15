@@ -28,12 +28,14 @@
   <div class="col-lg-6 col-xs-12">
   <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#home">Pendaftaran Pasien</a></li>
+
   <!-- <li><a data-toggle="tab" href="#menu2">Pasien Baru</a></li> -->
 </ul>
 
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active">
     <h3></h3>
+    <p>*pendaftaran di lakukan 1 jam sebelum praktek dokter</p>
     <form role="form" action="home-pasien.php?page=act-pendaftaran-pasien-lama" method="POST" enctype="multipart/form-data">    
     <div class="form-group">
                   <label for="exampleInputEmail1">NIK</label>

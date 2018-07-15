@@ -7,7 +7,19 @@ $NIK	=$_GET['NIK'];
 // $getData = mysql_fetch_array($cekNik);
 $cekNIK = mysql_num_rows(mysql_query("SELECT * FROM Pasien WHERE NIK = '$NIK'"));
 if(($cekNIK)==1){
-echo '<label>Spesialis</label>
+
+  $DataPasien = mysql_query("SELECT * FROM Pasien WHERE NIK = '$NIK'");
+  while ($row = mysql_fetch_array($DataPasien)) {
+    // echo '<p>Nama Pasien:  '.$row['nama'].'</p>';
+    echo '
+    <div class="form-group">
+      <label for="exampleInputEmail1">Nama Pasien</label>
+      <input class="form-control"  name="Nama" id="Nama" placeholder="'.$row['nama'].'" disabled>
+    </div>';
+  }
+    
+
+echo '<label>Pilih Spesialis</label>
         <select onFocus="val()" onChange="val()" id="idDokter" class="form-control" >
                 ';
                 // <?php 
@@ -20,6 +32,6 @@ echo '<label>Spesialis</label>
         echo "</select>";
 }
 else {
-  echo "<p> Anda belum terdaftar </br>
-  Silahkan melakuakan pendaftaran melaui admin RS Pusri </p>";
+  echo "<p> Anda belum terdaftar, </br>
+  Anda harus datang kerumah sakit untuk melakukan pendaftaran secara offline.</p>";
 }
