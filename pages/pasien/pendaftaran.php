@@ -171,11 +171,9 @@
                             $("#getdokter").html(html);
                           }
                         });
-                
   }
         function val() {
         document.getElementById('cekNIK').style.visibility = 'hidden';
-
                         idDokter = document.getElementById("idDokter").value;
                         
                         $.ajax({

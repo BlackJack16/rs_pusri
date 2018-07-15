@@ -8,6 +8,7 @@ $NIK	=$_GET['NIK'];
 $cekNIK = mysql_num_rows(mysql_query("SELECT * FROM Pasien WHERE NIK = '$NIK'"));
 if(($cekNIK)==1){
 
+  
   $DataPasien = mysql_query("SELECT * FROM Pasien WHERE NIK = '$NIK'");
   while ($row = mysql_fetch_array($DataPasien)) {
     // echo '<p>Nama Pasien:  '.$row['nama'].'</p>';
