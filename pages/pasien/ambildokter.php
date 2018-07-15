@@ -20,7 +20,9 @@ while ($row = mysql_fetch_array($getAllSpesialis)) {
 //   echo "<option value=''>Tidak ada dokter pada hari ini</option>";
 // }; ?>
 
+
  <input type="text" name="spesialis" value="<?php echo $spesialis; ?>" hidden>
 
 </select>                   
-		</div>
+    </div>
+    <button id="btnSubmit" style="margin-bottom:10px;" class="btn btn-block btn-primary">Daftar Antrian</button>

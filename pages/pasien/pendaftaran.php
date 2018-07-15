@@ -27,8 +27,8 @@
     
   <div class="col-lg-6 col-xs-12">
   <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home">Pasien Lama</a></li>
-  <li><a data-toggle="tab" href="#menu2">Pasien Baru</a></li>
+  <li class="active"><a data-toggle="tab" href="#home">Pendaftaran Pasien</a></li>
+  <!-- <li><a data-toggle="tab" href="#menu2">Pasien Baru</a></li> -->
 </ul>
 
 <div class="tab-content">
@@ -40,29 +40,18 @@
                   <input class="form-control"  name="NIK" id="NIK" placeholder="Masukan No KTP" required="">
     </div>
 
-    <div class="form-group">
-      <label>Spesialis</label>
-        <select onFocus="val()" onChange="val()" id="idDokter" class="form-control" >
-                <?php 
-                  $getDokter=mysql_query("SELECT * FROM dokter GROUP BY spesialis");
-                
-                while ($row = mysql_fetch_array($getDokter))
-                {
-                    echo "<option value=".$row['idDokter'].">".$row['spesialis']."</option>";
-                  }
-                ?>   
-        </select>
+    <div id="getdokter" class="form-group">
+      
         
     </div>
-    
     <div id="tampil">
     </div>
-  <button type="submit" name="save" value="save" style="margin-bottom:10px;" class="btn btn-block btn-primary">Daftar Antrian</button>
-    
+
   
   </form>
-  </div>
-  <div id="menu2" class="tab-pane fade">
+  <button id="cekNIK" onclick="cekNik()" style="margin-bottom:10px;" class="btn btn-block btn-primary">Daftar Antrian</button>
+      </div>
+  <!-- <div id="menu2" class="tab-pane fade">
   <h3></h3>
   <div class="box box-primary">
           
@@ -94,7 +83,7 @@
                   </div>
                   <input type="date" name="tglLahir" class="form-control pull-right" id="datepicker" required>
                 </div>
-                <!-- /.input group -->
+               
               </div> 
               
               <div class="form-group">
@@ -164,9 +153,27 @@
             </div>
   </div>
 </div>
-</div>
+</div> -->
   <script>
+  function cekNik() {
+    // cek = document.getElementById("btnSubmit");
+      // cek.click(function(){
+        // document.getElementById('btnSubmit').style.visibility = 'hidden';
+        NIK = document.getElementById("NIK").value;
+          //  NIK = "12345"             
+                        $.ajax({
+                          type:"GET",
+                          url:"pages/pasien/ambildokterspesialis.php",
+                          data:"NIK="+NIK,
+                          success:function(html){
+                            $("#getdokter").html(html);
+                          }
+                        });
+                
+  }
         function val() {
+        document.getElementById('cekNIK').style.visibility = 'hidden';
+
                         idDokter = document.getElementById("idDokter").value;
                         
                         $.ajax({
@@ -178,6 +185,7 @@
                           }
                         });
                       };
+
                       function val2() {
                         idDokter = document.getElementById("idDokter2").value;
                         
