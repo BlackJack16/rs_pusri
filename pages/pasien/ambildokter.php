@@ -6,9 +6,13 @@ $dokter= mysql_query("SELECT * FROM dokter where dokter.idDokter = '$idDokter' "
 $getData = mysql_fetch_array($dokter);
 $spesialis = $getData['spesialis'];
 
-$getSpesialis = mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'");
+// $getSpesialis = mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'");
+$getSpesialis = mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis' and jadwal.jam >= (select time(NOW()))");
 // $getAllSpesialis = mysql_query("SELECT * FROM dokter where spesialis = '$spesialis'");
-$getAllSpesialis = mysql_num_rows(mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'"));
+// $getAllSpesialis = mysql_num_rows(mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'"));
+$getAllSpesialis = mysql_num_rows(mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis' and jadwal.jam >= (select time(NOW()))"));
+// select * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = "THT" and jadwal.jam >= (select time(NOW()))
+
 if(($getAllSpesialis)==1){
 echo '<div  class="form-group"> 
 <label>Dokter</label>
