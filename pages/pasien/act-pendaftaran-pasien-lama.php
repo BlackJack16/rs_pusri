@@ -22,7 +22,13 @@
 		return $randomString;
 	}
 	
-	$random_string = generateRandomString();
+	function randomStr($str,$time,$number){
+		$words = explode(' ', $str);
+		$result = $words[0][0]. $words[1][0]."-".$time."-".$number;
+		return $result;
+	};
+		
+	//$random_string = generateRandomString();
 	include "dist/koneksi.php";
 	// $cekuser	=mysql_num_rows (mysql_query("SELECT username FROM tb_user WHERE username='$_POST[username]'"));
 	
@@ -50,7 +56,7 @@
 					$cekAntrian = mysql_num_rows(mysql_query("SELECT * FROM `antrianPasien` WHERE tglAntrian = CURDATE() and spesialis='$spesi'"));
 					if(($cekAntrian)==0){
 						$pendaftar = $_SESSION['username'];
-
+						$random_string = randomStr($spesi,$idDokter,"1");
 						$insert = "INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian,kodeBooking) VALUES ('$NIK','$idDokter','$spesi',1,'$pendaftar',NOW(),'$random_string')";						
 						//INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian,kodeBooking) VALUES ('$NIK','$idDokter','$spesi',$tambahAntrian,'$pendaftar',NOW(),'$random_string')"
 						$query = mysql_query ($insert);
@@ -86,6 +92,7 @@
 						$noAntrian = $getData['noAntrian'];
 						$tambahAntrian = ($noAntrian + 1);
 						$pendaftar = $_SESSION['username'];
+						$random_string = randomStr($spesi,$idDokter,$tambahAntrian);
 	
 						$insert = "INSERT INTO antrianPasien (NIK,idDokter,spesialis,noAntrian,NIKPendaftar,tglAntrian,kodeBooking) VALUES ('$NIK','$idDokter','$spesi',$tambahAntrian,'$pendaftar',NOW(),'$random_string')";
 						$query = mysql_query ($insert);

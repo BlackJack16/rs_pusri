@@ -7,10 +7,10 @@ $getData = mysql_fetch_array($dokter);
 $spesialis = $getData['spesialis'];
 
 // $getSpesialis = mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'");
-$getSpesialis = mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis' and jadwal.jam >= (select time(NOW()))");
+$getSpesialis = mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis' and date_sub(time(jadwal.jam), INTERVAL 1 HOUR) >= (select time(NOW()))");
 // $getAllSpesialis = mysql_query("SELECT * FROM dokter where spesialis = '$spesialis'");
 // $getAllSpesialis = mysql_num_rows(mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis'"));
-$getAllSpesialis = mysql_num_rows(mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis' and jadwal.jam >= (select time(NOW()))"));
+$getAllSpesialis = mysql_num_rows(mysql_query("SELECT * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = '$spesialis' and date_sub(time(jadwal.jam), INTERVAL 1 HOUR) >= (select time(NOW()))"));
 // select * FROM dokter inner JOIN jadwal on jadwal.idDokter = dokter.idDokter INNER join hari on jadwal.idHari = hari.idHari where hari.eng = (select DAYNAME(NOW())) and spesialis = "THT" and jadwal.jam >= (select time(NOW()))
 
 if(($getAllSpesialis)==1){
