@@ -29,7 +29,14 @@
 			<div class="small-box bg-aqua">
 				<div class="inner">
 					<p>No Antrian Sekarang</p>
-					<h3><?=$noAntrian?></h3>
+					<?php 
+          if ((int)$noAntrian>10) {
+            echo "<h3>".$noAntrian."</h3>";
+          }
+          else {
+            echo "<h3>0".$noAntrian."</h3>";
+          }
+          ?>
 				</div>
 			  <div class="icon">
 					<i class="ion ion-clipboard"></i>
@@ -76,12 +83,17 @@
 <?php
  $DataDokter =mysql_query("SELECT antrianPasien.noAntrian, pasien.NIK, pasien.nama as nama_pasien, dokter.nama as nama_dokter, dokter.spesialis FROM `antrianPasien` INNER JOIN pasien on pasien.NIK = antrianPasien.NIK inner join dokter on antrianPasien.idDokter=dokter.idDokter WHERE tglAntrian = CURDATE() and status=0 and dokter.spesialis='Anak' order by antrianPasien.noAntrian asc limit 1,99");
  while ($row = mysql_fetch_array($DataDokter)){
-   
+  if ($row['noAntrian']<10){
+    $noSaya = "0".$row['noAntrian'];
+  }
+  else {
+    $noSaya = $row['noAntrian'];
+  }
    echo 
 '<div class="col-lg-12 col-xs-12">
    
    <div class="info-box">
-            <span class="info-box-icon bg-aqua">'.$row['noAntrian'].'</span>
+            <span class="info-box-icon bg-aqua">'.$noSaya.'</span>
 
             <div class="info-box-content">
               <span class="info-box-text">'.$row['nama_pasien'].'</span>
